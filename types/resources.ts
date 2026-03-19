@@ -18,8 +18,8 @@ export const forkConfig = {
   enabled: true,
   name: 'MeshControl Fork',
   description: 'Meshtastic firmware fork with MeshControl, relay_node support, and HOP_MAX=64',
-  firmwareRepo: 'https://raw.githubusercontent.com/meshtastic/meshtastic.github.io/master',
-  githubRepo: 'https://github.com/meshtastic/firmware',
+  firmwareRepo: 'https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages',
+  githubRepo: 'https://github.com/baymesh/firmware',
   releaseNotes: `
 ## Meshtastic Fork Firmware Features
 
@@ -70,7 +70,7 @@ export const eventMode: EventModeConfig = {
   firmware: {
     id: `v${eventFirmwareId}`,
     title: `Meshtastic Fork ${eventFirmwareId}`,
-    zip_url: `https://github.com/meshtastic/meshtastic.github.io/raw/master/firmware-${eventFirmwareId}.zip`,
+    zip_url: `https://baymesh.github.io/bayme.sh-firmware-pages/firmware-${eventFirmwareId}.zip`,
     release_notes: eventReleaseNotes,
   },
 };
