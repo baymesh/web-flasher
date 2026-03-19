@@ -1,14 +1,14 @@
 {
-  "title": "DEFCON",
-  "image": "./defcon-log.png",
+  "title": "MeshControl Fork",
+  "image": "./logo.svg",
   "vendorCobrandingTag": "",
-  "backGroundColor": "#000000",
+  "backGroundColor": "#1a1a2e",
   "textColor": "#FFFFFF",
-  "primaryColor": "#FF0000",
-  "secondaryColor": "#00FF00",
+  "primaryColor": "#e94560",
+  "secondaryColor": "#0f3460",
   "release": {
-    "isPrerelease": false,
-    "version": "2.6.6.54c1423",
-    "githubioPrefix": "defcon"
+    "isPrerelease": true,
+    "version": "2.7.21.3a14be7",
+    "githubioPrefix": "fork"
   }
 }

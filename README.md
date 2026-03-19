@@ -1,40 +1,97 @@
-[![Vercel](https://img.shields.io/static/v1?label=Powered%20by&message=Vercel&style=flat&logo=vercel&color=000000)](https://vercel.com?utm_source=meshtastic&utm_campaign=oss)
-[![CLA assistant](https://cla-assistant.io/readme/badge/meshtastic/web-flasher)](https://cla-assistant.io/meshtastic/web-flasher)
+# Meshtastic Fork Web Flasher
 
-# Meshtastic Web Flasher
+A customized version of the [Meshtastic Web Flasher](https://github.com/meshtastic/web-flasher) that distributes fork firmware with MeshControl and relay_node features.
 
-## Introduction
-Welcome to the Meshtastic Web Flasher - a user-friendly, robust tool designed for flashing Meshtastic devices. Leveraging the power of Nuxt/Vue and Tailwind CSS, this web application offers an easy-to-use interface for device flashing.
+## Fork Features
 
-## Key Features
-- **Espressif's esptool.js Integration**: Incorporates the official JavaScript port of Espressif's esptool for enhanced robustness and compatibility with newer Espressif silicon.
-- **All-in-One Platform Support**: Designed to be a comprehensive solution, supporting a wide range of devices including nRF52 and Pico UF2.
-- **Developer-Friendly Design**: Built with Nuxt/Vue, simplifying the development and maintenance process.
-- **Built-in Serial Monitor**: The built-in Serial Monitor allows debugging and troubleshooting of issues encountered on Meshtastic devices via the native serial logging interface.
+This web flasher distributes Meshtastic firmware with the following customizations:
 
-## Getting Started
-To use the Meshtastic Web Flasher, simply visit [https://flasher.meshtastic.org](https://flasher.meshtastic.org). The website is designed to be intuitive and easy to navigate, allowing you to start flashing your devices right away.
+### MeshControl (Port 78)
+Remote configuration of mesh nodes via signed HMAC packets.
 
-## Contributing
-Interested in contributing? Here's how you can get involved:
+**Configuration options:**
+- `control_key`: 32-byte shared secret for authenticating control packets
+- `accept_policy`: DISABLED, PROMPT, or AUTO
+- `min_interval_secs`: Rate limiting between control packets
 
-1. Clone this repository.
-2. Make sure to install the dependencies:
+**Permission flags:**
+- `allow_lora_config`: Allow LoRa parameter changes
+- `allow_hop_limits`: Allow hop limit changes
+- `allow_position_interval`: Allow position broadcast interval changes
+- `allow_telemetry_interval`: Allow telemetry interval changes
+- `allow_node_info_interval`: Allow node info interval changes
+
+### Relay Node Support
+
+**For Broadcasts:**
+- Client apps can set `relay_node` in MeshPacket to designate which node should rebroadcast
+- Only the designated node will rebroadcast; others ignore the packet
+
+**For Direct Messages:**
+- New `dm_relay_node` preference in DeviceConfig
+- When set, all DMs use that node as the relay
+
+### Hop Limit
+- Changed `HOP_MAX` from 127 to 64
+
+## Usage
+
+1. Visit the deployed web flasher
+2. Select your device
+3. Flash the fork firmware
+4. Configure MeshControl settings via the iOS app or CLI
+
+## Development
+
+### Prerequisites
+- Node.js 18+
+- pnpm
+- For building firmware: PlatformIO Core, nanopb
+
+### Setup
 ```bash
+# Install dependencies
 pnpm install
-```
-3. Start the development server on `http://localhost:3000`:
-```bash
+
+# Start development server
 pnpm run dev
 ```
 
-Check out the full Nuxt [deployment documentation](https://nuxt.com/docs/getting-started/deployment#presets) for more information.
+### Building Firmware
 
-## Feedback and Support
-For bug reports, feature requests, or general queries, please open an issue in this repository. Your feedback helps us improve and evolve the Meshtastic Web Flasher.
+Use the script from the firmware repository:
+```bash
+cd ../firmware-Fork
+pio run -e rak4631
+```
 
-Thank you for using and supporting the Meshtastic Web Flasher.
+Or use the publish script:
+```bash
+cd scripts
+./publish-firmware.sh
+```
 
-## Stats
+## Deployment
 
-![Alt](https://repobeats.axiom.co/api/embed/b5590d57a9c3443c86121c36ded22aeb28f709d2.svg "Repobeats analytics image")
+This is a Nuxt.js application. Deploy to Vercel or any Node.js hosting:
+
+```bash
+pnpm run build
+```
+
+## Customization
+
+### Configuration Files
+
+- `types/resources.ts` - Fork firmware version and configuration
+- `utils/firmwareUrl.ts` - Firmware URL base path
+- `public/data/manifest.json` - Branding customization
+
+### Enabling Fork Mode
+
+Set `forkConfig.enabled = true` in `types/resources.ts` to lock the flasher to fork firmware only.
+
+## License
+
+Based on the [Meshtastic Web Flasher](https://github.com/meshtastic/web-flasher) project.
+See the original project for licensing details.

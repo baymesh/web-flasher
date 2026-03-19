@@ -2,14 +2,40 @@ import type { FirmwareResource } from './api';
 
 // Remove the OfflineHardwareList since it's now in /public/data/hardware-list.json
 
-const currentPrereleaseId = '2.7.20.6658ec2';
+const currentPrereleaseId = '2.7.21.3a14be7';
 
 export const showPrerelease = false;
 
 export const currentPrerelease = <FirmwareResource>{
   id: `v${currentPrereleaseId}`,
-  title: `Meshtastic Firmware ${currentPrereleaseId} Pre-release`,
+  title: `Meshtastic Fork Firmware ${currentPrereleaseId}`,
   zip_url: `https://github.com/meshtastic/firmware/releases/download/v${currentPrereleaseId}/firmware-${currentPrereleaseId}.zip`,
+};
+
+// Fork Configuration
+// Set the GitHub repo that hosts your fork firmware
+export const forkConfig = {
+  enabled: true,
+  name: 'MeshControl Fork',
+  description: 'Meshtastic firmware fork with MeshControl, relay_node support, and HOP_MAX=64',
+  firmwareRepo: 'https://raw.githubusercontent.com/meshtastic/meshtastic.github.io/master',
+  githubRepo: 'https://github.com/meshtastic/firmware',
+  releaseNotes: `
+## Meshtastic Fork Firmware Features
+
+### MeshControl (Port 78)
+Remote configuration of mesh nodes via signed HMAC packets.
+
+### Relay Node Support
+- **Broadcast relay_node**: Set which node should rebroadcast your broadcasts first
+- **DM relay_node preference**: Configure a default relay node for direct messages
+
+### Hop Limit
+- Changed HOP_MAX from 127 to 64
+
+### Configuration
+Use the iOS app or CLI to configure these features.
+  `,
 };
 
 // Event Mode Configuration
@@ -21,36 +47,30 @@ export interface EventModeConfig {
   firmware: FirmwareResource;
 }
 
-const eventFirmwareId = '2.7.18.7e03cae';
+const eventFirmwareId = '2.7.21.3a14be7';
 
 const eventReleaseNotes = `
-## Welcome to Orlando Hamcation 2026!
+## Meshtastic Fork Firmware
 
-This firmware has been customized for Hamcation with factory default configurations.
+This firmware includes MeshControl and relay_node features.
 
-### ⚠️ Important: Backup Before Flashing
+### Features
+- MeshControl: Remote configuration via signed packets
+- Relay Node: Specify which node rebroadcasts your messages
+- HOP_MAX=64: Reduced hop limit
 
-If your device has existing settings or encryption keys, **backup your keys / configurations** before proceeding. Flashing will reset your device to factory settings for the event.
-
-### Quick Start
-
-1. Ensure a **data-capable USB cable** is connected
-2. Select your device type
-3. Choose "Full Erase and Install"
-4. After flashing, download the Meshtastic app and pair via Bluetooth
-5. If you updated from a previous version or installed a UF2 on an NRF52 device, you will need to perform a factory reset on the device to activate the Hamcation mode.
-
-**73 and happy meshing!**
+### Backup Note
+If your device has existing settings, backup your keys before flashing.
 `;
 
 export const eventMode: EventModeConfig = {
   enabled: false,
-  eventName: 'Orlando Hamcation 2026',
-  eventTag: 'Hamcation',
+  eventName: 'MeshControl Fork',
+  eventTag: 'Fork',
   firmware: {
     id: `v${eventFirmwareId}`,
-    title: `Meshtastic Firmware ${eventFirmwareId}`,
-    zip_url: `https://github.com/meshtastic/meshtastic.github.io/raw/master/event/hamcation2026/firmware-${eventFirmwareId}.zip`,
+    title: `Meshtastic Fork ${eventFirmwareId}`,
+    zip_url: `https://github.com/meshtastic/meshtastic.github.io/raw/master/firmware-${eventFirmwareId}.zip`,
     release_notes: eventReleaseNotes,
   },
 };
