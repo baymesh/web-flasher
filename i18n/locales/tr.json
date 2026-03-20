@@ -1,5 +1,5 @@
 {
-  "title": "Meshtastic Web Yazılım Yükleyicisi",
+  "title": "Baymesh Web Yazılım Yükleyicisi",
   "header": "Yazılım Yükleyicisi",
   "description": "ESP32 yazılımı yüklemek için web tabanlı bir araç",
   "browser_warning": "Tarayıcınız WebSerial API'sını desteklemiyor. Lütfen Chrome veya Edge gibi uyumlu bir tarayıcıya kullanın.",
@@ -127,5 +127,7 @@
     "error_connection": "Failed to connect to device or the device may already be in DFU mode. Please disconnect and reconnect the device, then try again. If the problem persists, reload the page.",
     "error_unresponsive_title": "Device Unresponsive",
     "error_unresponsive": "The device is not responding. Please ensure it is properly connected and not in DFU mode. If the problem persists, reload the page."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

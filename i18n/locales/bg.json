@@ -1,5 +1,5 @@
 {
-  "title": "Meshtastic Web програматор",
+  "title": "Baymesh Web програматор",
   "header": "Програматор",
   "description": "Web-базиран инструмент за инсталиране на фърмуер на ESP32",
   "browser_warning": "Вашият браузър не поддържа WebSerial API. Моля, преминете към съвместим браузър, като Chrome или Edge, за пълна функционалност.",
@@ -129,5 +129,7 @@
     "error_connection": "Failed to connect to device or the device may already be in DFU mode. Please disconnect and reconnect the device, then try again. If the problem persists, reload the page.",
     "error_unresponsive_title": "Устройството не реагира",
     "error_unresponsive": "The device is not responding. Please ensure it is properly connected and not in DFU mode. If the problem persists, reload the page."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

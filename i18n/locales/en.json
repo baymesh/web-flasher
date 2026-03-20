@@ -1,9 +1,11 @@
 {
-  "title": "Meshtastic Web Flasher",
+  "title": "Baymesh Flasher",
   "header": "Flasher",
-  "description": "Update your Meshtastic device with official firmware, straight from your browser",
+  "description": "Update your Baymesh device with custom firmware, straight from your browser",
   "browser_warning": "Your browser does not support the WebSerial API. Please switch to a compatible browser, such as Chrome or Edge, for full functionality.",
-  "header_title": "Meshtastic Web Flasher",
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "header_title": "Baymesh Flasher",
+  "github_link": "Baymesh Flasher on GitHub",
   "language": "Language",
   "actions": {
     "connect": "Connect",

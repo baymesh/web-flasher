@@ -1,9 +1,9 @@
 {
-  "title": "Meshtastic Web Flasher ",
+  "title": "Baymesh Web Flasher ",
   "header": "Flasher",
   "description": "Web-pohjainen työkalu ESP32 laiteohjelmiston ohjelmoimiseen",
   "browser_warning": "Selaimesi ei tue WebSerial (API) käyttöliittymää. Vaihda yhteensopivaan selaimeen, kuten Chromeen tai Edgeen.",
-  "header_title": "Meshtastic Web Flasher",
+  "header_title": "Baymesh Web Flasher",
   "language": "Kieli",
   "actions": {
     "connect": "Yhdistä",
@@ -129,5 +129,7 @@
     "error_connection": "Laitteeseen yhdistäminen epäonnistui tai laite saattaa jo olla DFU-tilassa. Irrota ja liitä laite uudelleen ja yritä sitten uudelleen. Jos ongelma jatkuu, lataa sivu uudelleen.",
     "error_unresponsive_title": "Laite ei vastaa",
     "error_unresponsive": "Laite ei vastaa. Varmista, että se on kunnolla kytketty, eikä DFU-tilassa. Jos ongelma jatkuu, lataa sivu uudelleen."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

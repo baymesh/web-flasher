@@ -1,5 +1,5 @@
 {
-  "title": "Meshtastic 網頁燒錄工具",
+  "title": "Baymesh 網頁燒錄工具",
   "header": "燒錄",
   "description": "網頁版 ESP32 韌體燒錄工具",
   "browser_warning": "你的瀏覽器不支援 WebSerial API。請改用相容的瀏覽器，例如 Chrome 或 Edge，以使用完整功能。",
@@ -127,5 +127,7 @@
     "error_connection": "Failed to connect to device or the device may already be in DFU mode. Please disconnect and reconnect the device, then try again. If the problem persists, reload the page.",
     "error_unresponsive_title": "Device Unresponsive",
     "error_unresponsive": "The device is not responding. Please ensure it is properly connected and not in DFU mode. If the problem persists, reload the page."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

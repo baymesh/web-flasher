@@ -1,5 +1,5 @@
 {
-  "title": "Meshtastic Веб-Прошивальник",
+  "title": "Baymesh Веб-Прошивальник",
   "header": "Прошивальник",
   "description": "Веб-інструмент для прошивки мікроконтролерів ESP32",
   "browser_warning": "Ваш браузер не підтримує WebSerial API. Будь ласка, скористайтеся сумісним браузером, наприклад Chrome або Edge, для повної функціональності.",
@@ -127,5 +127,7 @@
     "error_connection": "Не вдалося підключитись до пристрою або він уже в DFU режимі. Відключіть і підключіть знову, потім спробуйте ще раз. Якщо проблема залишилась — оновіть сторінку.",
     "error_unresponsive_title": "Пристрій не відповідає",
     "error_unresponsive": "Пристрій не відповідає. Переконайтеся, що він правильно підключений і не перебуває у DFU режимі. Якщо проблема залишилась — оновіть сторінку."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

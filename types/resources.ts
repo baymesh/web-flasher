@@ -16,12 +16,15 @@ export const currentPrerelease = <FirmwareResource>{
 // Set the GitHub repo that hosts your fork firmware
 export const forkConfig = {
   enabled: true,
-  name: 'MeshControl Fork',
-  description: 'Meshtastic firmware fork with MeshControl, relay_node support, and HOP_MAX=64',
+  name: 'Baymesh Firmware',
+  description: 'Custom Meshtastic fork with MeshControl, relay_node, HOP_MAX=64, position broadcast off, and channel slot 49',
   firmwareRepo: 'https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages',
   githubRepo: 'https://github.com/baymesh/firmware',
   releaseNotes: `
-## Meshtastic Fork Firmware Features
+## Baymesh Firmware Features
+
+### ⚠️ Not Compatible with Standard Meshtastic
+This firmware is a custom fork and will NOT work with regular Meshtastic clients.
 
 ### MeshControl (Port 78)
 Remote configuration of mesh nodes via signed HMAC packets.
@@ -31,7 +34,11 @@ Remote configuration of mesh nodes via signed HMAC packets.
 - **DM relay_node preference**: Configure a default relay node for direct messages
 
 ### Hop Limit
-- Changed HOP_MAX from 127 to 64
+- HOP_MAX = 64 (reduced from 127)
+
+### Defaults
+- Position broadcast: OFF by default
+- Node info broadcasts: Use regular hop limit
 
 ### Configuration
 Use the iOS app or CLI to configure these features.

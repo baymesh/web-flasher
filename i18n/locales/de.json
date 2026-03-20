@@ -1,9 +1,9 @@
 {
-  "title": "Meshtastic Web Flasher",
+  "title": "Baymesh Web Flasher",
   "header": "Flasher",
-  "description": "Ein webbasiertes Tool um Meshtastic-Firmware zu flashen",
+  "description": "Ein webbasiertes Tool um Baymesh-Firmware zu flashen",
   "browser_warning": "Ihr Browser unterstützt die WebSerial API nicht. Bitte wechseln Sie zu einem kompatiblen Browser wie Chrome oder Edge, um die volle Funktionalität zu erhalten.",
-  "header_title": "Meshtastic Web Flasher",
+  "header_title": "Baymesh Web Flasher",
   "language": "Sprache",
   "actions": {
     "connect": "Verbindung herstellen",
@@ -129,5 +129,7 @@
     "error_connection": "Die Verbindung zum Gerät konnte nicht hergestellt werden oder das Gerät befindet sich möglicherweise bereits im DFU Modus. Bitte trennen Sie das Gerät und verbinden Sie es erneut, und versuchen Sie es dann noch einmal. Sollte das Problem weiterhin bestehen, laden Sie die Seite neu.",
     "error_unresponsive_title": "Gerät reagiert nicht",
     "error_unresponsive": "Das Gerät reagiert nicht. Bitte stellen Sie sicher, dass es ordnungsgemäß angeschlossen ist und sich nicht im DFU Modus befindet. Sollte das Problem weiterhin bestehen, laden Sie die Seite neu."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

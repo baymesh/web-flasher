@@ -127,5 +127,7 @@
     "error_connection": "Не удалось подключиться к устройству или устройство уже находится в режиме DFU. Пожалуйста, отключите и подключите устройство, затем повторите попытку. Если проблема не устранена, перезагрузите страницу.",
     "error_unresponsive_title": "Устройство не отвечает",
     "error_unresponsive": "Устройство не отвечает. Пожалуйста, убедитесь, что оно правильно подключено и не находится в режиме DFU. Если проблема повторится, перезагрузите страницу."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

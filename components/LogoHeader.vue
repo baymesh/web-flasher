@@ -88,6 +88,14 @@
         <span class="logo-title-gradient">{{ $t('header_title') }}</span>
       </h1>
       <p class="logo-tagline">{{ $t('description') }}</p>
+      <a
+        href="https://github.com/baymesh/web-flasher"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-link"
+      >
+        {{ $t('github_link') }}
+      </a>
     </div>
   </div>
 </template>
@@ -256,5 +264,18 @@ const { eventMode } = useEventMode()
   .logo-tagline {
     font-size: 1rem;
   }
+}
+
+.github-link {
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-top: 0.25rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.github-link:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
 }
 </style>

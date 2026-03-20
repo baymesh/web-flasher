@@ -1,5 +1,5 @@
 {
-  "title": "Meshtastic 网页刷写",
+  "title": "Baymesh 网页刷写",
   "header": "刷写",
   "description": "用于ESP32固件刷入的web工具",
   "browser_warning": "您的浏览器不支持WebSerial API。请切换到兼容的浏览器，如Chrome或Edge，获取全部功能。",
@@ -114,5 +114,7 @@
       "warn": "警告",
       "error": "错误"
     }
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

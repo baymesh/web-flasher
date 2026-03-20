@@ -1,9 +1,9 @@
 {
-  "title": "Meshtastic Web Flasher",
+  "title": "Baymesh Web Flasher",
   "header": "Flasher",
   "description": "Uno strumento web-based per il flashing del firmware ESP32",
   "browser_warning": "Il tuo browser non supporta l'API WebSerial. Passa a un browser compatibile, come Chrome o Edge, per avere una funzionalità completa.",
-  "header_title": "Meshtastic Web Flasher",
+  "header_title": "Baymesh Web Flasher",
   "language": "Lingua",
   "actions": {
     "connect": "Connetti",
@@ -129,5 +129,7 @@
     "error_connection": "Impossibile connettersi al dispositivo o il dispositivo potrebbe essere già in modalità DFU. Scollega e ricollega il dispositivo, quindi riprova. Se il problema persiste, ricarica la pagina.",
     "error_unresponsive_title": "Il dispositivo non risponde",
     "error_unresponsive": "Il dispositivo non risponde. Assicurati che sia collegato correttamente e non in modalità DFU. Se il problema persiste, ricarica la pagina."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

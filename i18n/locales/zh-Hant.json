@@ -1,5 +1,5 @@
 {
-  "title": "Meshtastic 網頁燒錄工具",
+  "title": "Baymesh 網頁燒錄工具",
   "header": "燒錄工具",
   "description": "一款用於 ESP32 韌體燒錄的網頁工具",
   "browser_warning": "您的瀏覽器不支援 WebSerial API。請改用相容的瀏覽器，例如 Chrome 或 Edge，以完整使用所有功能。",
@@ -114,5 +114,7 @@
       "warn": "警告",
       "error": "錯誤"
     }
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

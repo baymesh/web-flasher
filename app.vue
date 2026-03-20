@@ -7,6 +7,10 @@
     >
       <p>{{ $t('browser_warning') }}</p>
     </div>
+    <!-- Warning: Not compatible with standard Meshtastic firmware -->
+    <div class="bg-yellow-600 text-yellow-950 px-4 py-3 text-center font-semibold text-sm sm:text-base">
+      <span>{{ $t('firmware_warning') }}</span>
+    </div>
     <Head>
       <Title>{{ $t('title') }}</Title>
       <Meta

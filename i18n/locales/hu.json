@@ -1,9 +1,9 @@
 {
-  "title": "Meshtastic Web Flasher",
+  "title": "Baymesh Web Flasher",
   "header": "Flasher",
   "description": "Webalapú eszköz ESP32 firmware írásához (flasheléséhez)",
   "browser_warning": "A böngésződ nem támogatja a WebSerial API-t. A teljes funkcionalitás érdekében válts kompatibilis böngészőre, például Chrome-ra vagy Edge-re.",
-  "header_title": "Meshtastic Web Flasher",
+  "header_title": "Baymesh Web Flasher",
   "language": "Nyelv",
   "actions": {
     "connect": "Csatlakozás",
@@ -129,5 +129,7 @@
     "error_connection": "Nem sikerült csatlakozni az eszközhöz, vagy az eszköz már DFU módban van. Válaszd le, majd csatlakoztasd újra az eszközt, és próbáld meg ismét. Ha a probléma továbbra is fennáll, töltsd újra az oldalt.",
     "error_unresponsive_title": "Az eszköz nem reagál",
     "error_unresponsive": "Az eszköz nem válaszol. Ellenőrizd, hogy megfelelően csatlakozik-e, és nincs DFU módban. Ha a probléma továbbra is fennáll, töltsd újra az oldalt."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

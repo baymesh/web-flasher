@@ -1,9 +1,9 @@
 {
   "title": "Carregador WEB MESTASTIC",
   "header": "Flasher",
-  "description": "Update your Meshtastic device with official firmware, straight from your browser",
+  "description": "Update your Baymesh device with official firmware, straight from your browser",
   "browser_warning": "Your browser does not support the WebSerial API. Please switch to a compatible browser, such as Chrome or Edge, for full functionality.",
-  "header_title": "Meshtastic Web Flasher",
+  "header_title": "Baymesh Web Flasher",
   "language": "Language",
   "actions": {
     "connect": "Connect",
@@ -129,5 +129,7 @@
     "error_connection": "Failed to connect to device or the device may already be in DFU mode. Please disconnect and reconnect the device, then try again. If the problem persists, reload the page.",
     "error_unresponsive_title": "Device Unresponsive",
     "error_unresponsive": "The device is not responding. Please ensure it is properly connected and not in DFU mode. If the problem persists, reload the page."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }

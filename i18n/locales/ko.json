@@ -1,9 +1,9 @@
 {
-  "title": "Meshtastic 웹 플래셔",
+  "title": "Baymesh 웹 플래셔",
   "header": "플래셔",
   "description": "ESP32 펌웨어 플래싱을 위한 웹 기반 도구",
   "browser_warning": "귀하의 브라우저는 WebSerial API를 지원하지 않습니다. 완전한 기능을 사용하려면 Chrome 또는 Edge와 같은 호환되는 브라우저로 전환해 주시기 바랍니다.",
-  "header_title": "Meshtastic Web Flasher",
+  "header_title": "Baymesh Web Flasher",
   "language": "언어",
   "actions": {
     "connect": "연결",
@@ -127,5 +127,7 @@
     "error_connection": "Failed to connect to device or the device may already be in DFU mode. Please disconnect and reconnect the device, then try again. If the problem persists, reload the page.",
     "error_unresponsive_title": "Device Unresponsive",
     "error_unresponsive": "The device is not responding. Please ensure it is properly connected and not in DFU mode. If the problem persists, reload the page."
-  }
+  },
+  "firmware_warning": "WARNING: This firmware is NOT compatible with standard Meshtastic firmware. Only flash devices that will run Baymesh firmware.",
+  "github_link": "Baymesh Flasher on GitHub"
 }
