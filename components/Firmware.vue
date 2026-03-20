@@ -7,7 +7,7 @@
       id="dropdownFirmwareButton"
       ref="buttonRef"
       class="btn-primary disabled:bg-zinc-600"
-      :class="{ 'animate-bounce': store.prereleaseUnlocked && !store.$state.selectedFirmware?.id }"
+      :class="{ 'animate-bounce': (store.prereleaseUnlocked || store.couldntFetchFirmwareApi) && !store.$state.selectedFirmware?.id }"
       type="button"
       :disabled="!canSelectFirmware"
         @click.stop="toggleDropdown"
@@ -48,14 +48,15 @@
 
       <!-- Normal Mode: Full firmware list -->
       <template v-else>
+      <!-- Show prerelease section when unlocked OR when no API data (fallback for GitHub Pages) -->
       <div
-        v-if="store.prereleaseUnlocked && store.$state.previews.length > 0"
+        v-if="(store.prereleaseUnlocked || store.couldntFetchFirmwareApi) && store.$state.previews.length > 0"
         class="px-4 py-2 text-sm text-meshtastic font-semibold border-theme-bottom"
       >
         {{ $t('firmware.prerelease') }}
       </div>
       <ul
-        v-if="store.prereleaseUnlocked && store.$state.previews.length > 0"
+        v-if="(store.prereleaseUnlocked || store.couldntFetchFirmwareApi) && store.$state.previews.length > 0"
         class="py-2 text-sm text-theme-muted"
         aria-labelledby="dropdownInformationButton"
       >
