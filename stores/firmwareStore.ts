@@ -209,6 +209,10 @@ export const useFirmwareStore = defineStore('firmware', {
         .catch((error) => {
           console.error('Error fetching firmware list:', error)
           this.couldntFetchFirmwareApi = true
+          // Keep static previews even when API fails (for GitHub Pages fallback)
+          if (this.previews.length === 0) {
+            this.previews = previews
+          }
         })
     },
     async setSelectedFirmware(firmware: FirmwareResource) {
