@@ -111,8 +111,9 @@
           </span>
         </li>
       </ul>
+      <!-- Only show error if no prerelease firmware is available -->
       <div
-        v-if="store.couldntFetchFirmwareApi"
+        v-if="store.couldntFetchFirmwareApi && store.$state.previews.length === 0"
         class="px-3 sm:px-4 py-3 w-full sm:w-96 max-w-sm rounded-xl text-xs sm:text-sm border error-fetch-box break-words"
       >
         <strong>{{ $t('firmware.error_fetching') }}</strong>
@@ -134,7 +135,7 @@
     >
       <FolderOpen
         class="h-4 w-4"
-        :class="{ 'animate-bounce text-meshtastic': (store.couldntFetchFirmwareApi && canSelectFirmware) }"
+        :class="{ 'animate-bounce text-meshtastic': (store.couldntFetchFirmwareApi && canSelectFirmware && store.$state.previews.length === 0) }"
       />
     </button>
     <div
