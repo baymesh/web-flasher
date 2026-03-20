@@ -2,14 +2,14 @@ import type { FirmwareResource } from './api';
 
 // Remove the OfflineHardwareList since it's now in /public/data/hardware-list.json
 
-const currentPrereleaseId = '2.7.21.3a14be7';
+const currentPrereleaseId = '2.7.21.7c1bb0e';
 
-export const showPrerelease = false;
+export const showPrerelease = true;
 
 export const currentPrerelease = <FirmwareResource>{
   id: `v${currentPrereleaseId}`,
-  title: `Meshtastic Fork Firmware ${currentPrereleaseId}`,
-  zip_url: `https://github.com/meshtastic/firmware/releases/download/v${currentPrereleaseId}/firmware-${currentPrereleaseId}.zip`,
+  title: `Baymesh Firmware ${currentPrereleaseId}`,
+  zip_url: `https://github.com/baymesh/firmware/releases/download/v${currentPrereleaseId}/firmware-${currentPrereleaseId}.zip`,
 };
 
 // Fork Configuration
