@@ -209,7 +209,9 @@ export const useFirmwareStore = defineStore('firmware', {
         .catch((error) => {
           console.error('Error fetching firmware list:', error)
           this.couldntFetchFirmwareApi = true
-          // Keep static previews even when API fails (for GitHub Pages fallback)
+        })
+        .finally(() => {
+          // Always ensure static previews are available as fallback (for GitHub Pages)
           if (this.previews.length === 0) {
             this.previews = previews
           }

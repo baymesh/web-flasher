@@ -2,14 +2,14 @@ import type { FirmwareResource } from './api';
 
 // Remove the OfflineHardwareList since it's now in /public/data/hardware-list.json
 
-const currentPrereleaseId = '2.7.21.697b14d';
+const currentPrereleaseId = '2.7.21.f634e2f';
 
 export const showPrerelease = true;
 
 export const currentPrerelease = <FirmwareResource>{
   id: `v${currentPrereleaseId}`,
   title: `Baymesh Firmware ${currentPrereleaseId}`,
-  zip_url: `https://github.com/baymesh/firmware/releases/download/v${currentPrereleaseId}/firmware-${currentPrereleaseId}.zip`,
+  zip_url: `https://baymesh.github.io/bayme.sh-firmware-pages/firmware-${currentPrereleaseId}.zip`,
 };
 
 // Fork Configuration
