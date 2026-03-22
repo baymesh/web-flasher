@@ -10,119 +10,128 @@
       :class="{ 'animate-bounce': (store.prereleaseUnlocked || store.couldntFetchFirmwareApi) && !store.$state.selectedFirmware?.id }"
       type="button"
       :disabled="!canSelectFirmware"
-        @click.stop="toggleDropdown"
+      @click.stop="toggleDropdown"
     >
       {{ selectedVersion.replace('Meshtastic Firmware ', '').replace('Technical ', '') }}
       <ChevronDown class="w-2.5 h-2.5 ms-2" />
     </button>
-      <Teleport to="body">
-        <div
-          id="dropdownFirmware"
-          ref="dropdownRef"
-          v-show="isOpen"
-          class="fixed z-[120] rounded-xl shadow-2xl max-w-sm overflow-y-auto backdrop-blur-xl dropdown-menu"
-          :style="dropdownStyle"
-        >
-      <!-- Event Mode: Single firmware option -->
-      <template v-if="eventMode.enabled">
-        <div
-          class="px-4 py-2 text-sm text-meshtastic font-semibold border-theme-bottom"
-        >
-          {{ eventMode.eventName }}
-        </div>
-        <ul
-          class="py-2 text-sm text-theme-muted"
-          aria-labelledby="dropdownInformationButton"
-        >
-          <li>
-            <a
-              href="#"
-              class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
-              @click="setSelectedFirmware(eventMode.firmware)"
-            >
-              {{ eventMode.firmware.title.replace('Meshtastic Firmware ', '') }}
-            </a>
-          </li>
-        </ul>
-      </template>
+    <Teleport to="body">
+      <div
+        v-show="isOpen"
+        id="dropdownFirmware"
+        ref="dropdownRef"
+        class="fixed z-[120] rounded-xl shadow-2xl max-w-sm overflow-y-auto backdrop-blur-xl dropdown-menu"
+        :style="dropdownStyle"
+      >
+        <!-- Event Mode: Single firmware option -->
+        <template v-if="eventMode.enabled">
+          <div
+            class="px-4 py-2 text-sm text-meshtastic font-semibold border-theme-bottom"
+          >
+            {{ eventMode.eventName }}
+          </div>
+          <ul
+            class="py-2 text-sm text-theme-muted"
+            aria-labelledby="dropdownInformationButton"
+          >
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
+                @click="setSelectedFirmware(eventMode.firmware)"
+              >
+                {{ eventMode.firmware.title.replace('Meshtastic Firmware ', '') }}
+              </a>
+            </li>
+          </ul>
+        </template>
 
-      <!-- Normal Mode: Full firmware list -->
-      <template v-else>
-      <!-- Show prerelease section when unlocked OR when no API data (fallback for GitHub Pages) -->
-      <div
-        v-if="(store.prereleaseUnlocked || store.couldntFetchFirmwareApi) && store.$state.previews.length > 0"
-        class="px-4 py-2 text-sm text-meshtastic font-semibold border-theme-bottom"
-      >
-        {{ $t('firmware.prerelease') }}
-      </div>
-      <ul
-        v-if="(store.prereleaseUnlocked || store.couldntFetchFirmwareApi) && store.$state.previews.length > 0"
-        class="py-2 text-sm text-theme-muted"
-        aria-labelledby="dropdownInformationButton"
-      >
-        <li v-for="release in store.$state.previews">
-          <a
-            href="#"
-            class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
-            @click="setSelectedFirmware(release)"
+        <!-- Normal Mode: Full firmware list -->
+        <template v-else>
+          <!-- Show prerelease section when unlocked OR when no API data (fallback for GitHub Pages) -->
+          <div
+            v-if="showPreviewFirmware && store.$state.previews.length > 0"
+            class="px-4 py-2 text-sm text-meshtastic font-semibold border-theme-bottom"
           >
-            {{ release.title.replace('Meshtastic Firmware ', '').replace('Pre-release ', '') }}
-          </a>
-        </li>
-      </ul>
-      <div
-        v-if="!store.couldntFetchFirmwareApi"
-        class="px-4 py-2 text-sm text-warning font-semibold border-theme-bottom border-theme-top"
-      >
-        {{ $t('firmware.unstable') }}
-      </div>
-      <ul
-        v-if="!store.couldntFetchFirmwareApi"
-        class="py-2 text-sm text-theme-muted"
-        aria-labelledby="dropdownInformationButton"
-      >
-        <li v-for="release in store.$state.alpha">
-          <a
-            href="#"
-            class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
-            @click="setSelectedFirmware(release)"
+            {{ $t('firmware.prerelease') }}
+          </div>
+          <ul
+            v-if="showPreviewFirmware && store.$state.previews.length > 0"
+            class="py-2 text-sm text-theme-muted"
+            aria-labelledby="dropdownInformationButton"
           >
-            {{ release.title.replace('Meshtastic Firmware ', '') }}
-          </a>
-        </li>
-      </ul>
-      <div
-        v-if="!store.couldntFetchFirmwareApi"
-        class="px-4 py-2 text-sm text-green-400 font-semibold border-theme-bottom border-theme-top"
-      >
-        {{ $t('firmware.stable') }}
-      </div>
-      <ul
-        v-if="!store.couldntFetchFirmwareApi"
-        class="py-2 text-sm text-theme-muted"
-        aria-labelledby="dropdownInformationButton"
-      >
-        <li v-for="release in store.$state.stable">
-          <span
-            class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
-            @click="setSelectedFirmware(release)"
+            <li
+              v-for="release in store.$state.previews"
+              :key="release.id"
+            >
+              <a
+                href="#"
+                class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
+                @click="setSelectedFirmware(release)"
+              >
+                {{ release.title.replace('Meshtastic Firmware ', '').replace('Pre-release ', '') }}
+              </a>
+            </li>
+          </ul>
+          <div
+            v-if="!store.couldntFetchFirmwareApi"
+            class="px-4 py-2 text-sm text-warning font-semibold border-theme-bottom border-theme-top"
           >
-            {{ release.title.replace('Meshtastic Firmware ', '') }}
-          </span>
-        </li>
-      </ul>
-      <!-- Only show error if no prerelease firmware is available -->
-      <div
-        v-if="store.couldntFetchFirmwareApi && store.$state.previews.length === 0"
-        class="px-3 sm:px-4 py-3 w-full sm:w-96 max-w-sm rounded-xl text-xs sm:text-sm border error-fetch-box break-words"
-      >
-        <strong>{{ $t('firmware.error_fetching') }}</strong>
-        <br>
-        {{ $t('firmware.refresh_later') }}
-        {{ $t('firmware.upload_alternative') }}
-        <FolderOpen class="h-3 w-3 inline" /> {{ $t('firmware.icon') }}
-      </div>
-      </template>
+            {{ $t('firmware.unstable') }}
+          </div>
+          <ul
+            v-if="!store.couldntFetchFirmwareApi"
+            class="py-2 text-sm text-theme-muted"
+            aria-labelledby="dropdownInformationButton"
+          >
+            <li
+              v-for="release in store.$state.alpha"
+              :key="release.id"
+            >
+              <a
+                href="#"
+                class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
+                @click="setSelectedFirmware(release)"
+              >
+                {{ release.title.replace('Meshtastic Firmware ', '') }}
+              </a>
+            </li>
+          </ul>
+          <div
+            v-if="!store.couldntFetchFirmwareApi"
+            class="px-4 py-2 text-sm text-green-400 font-semibold border-theme-bottom border-theme-top"
+          >
+            {{ $t('firmware.stable') }}
+          </div>
+          <ul
+            v-if="!store.couldntFetchFirmwareApi"
+            class="py-2 text-sm text-theme-muted"
+            aria-labelledby="dropdownInformationButton"
+          >
+            <li
+              v-for="release in store.$state.stable"
+              :key="release.id"
+            >
+              <span
+                class="block px-4 py-2 hover:text-meshtastic-dark hover:bg-surface-secondary cursor-pointer transition-colors"
+                @click="setSelectedFirmware(release)"
+              >
+                {{ release.title.replace('Meshtastic Firmware ', '') }}
+              </span>
+            </li>
+          </ul>
+          <!-- Only show error if no prerelease firmware is available -->
+          <div
+            v-if="store.couldntFetchFirmwareApi && store.$state.previews.length === 0"
+            class="px-3 sm:px-4 py-3 w-full sm:w-96 max-w-sm rounded-xl text-xs sm:text-sm border error-fetch-box break-words"
+          >
+            <strong>{{ $t('firmware.error_fetching') }}</strong>
+            <br>
+            {{ $t('firmware.refresh_later') }}
+            {{ $t('firmware.upload_alternative') }}
+            <FolderOpen class="h-3 w-3 inline" /> {{ $t('firmware.icon') }}
+          </div>
+        </template>
       </div>
     </Teleport>
     <button
@@ -189,12 +198,20 @@ const canSelectFirmware = computed(() => {
   return (deviceStore.selectedTarget?.hwModel ?? 0) > 0
 })
 
+const showPreviewFirmware = computed(() => {
+  return store.prereleaseUnlocked || store.couldntFetchFirmwareApi || store.$state.usesStaticForkReleases
+})
+
 const openFile = () => {
   document.getElementById('file_upload')?.click()
 }
 
-const setFirmwareFile = (event: any) => {
-  store.setFirmwareFile(event.target.files[0])
+const setFirmwareFile = (event: Event) => {
+  const input = event.target as HTMLInputElement | null
+  const [file] = input?.files ?? []
+  if (file) {
+    store.setFirmwareFile(file)
+  }
 }
 
 const setSelectedFirmware = (release: FirmwareResource) => {

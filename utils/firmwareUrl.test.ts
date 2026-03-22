@@ -1,78 +1,48 @@
-import { describe, it, expect } from 'vitest'
-import { getManifestBasePath, getFirmwareBaseUrl, GITHUB_IO_BASE } from './firmwareUrl'
+import { describe, expect, it } from 'vitest'
+import { eventMode, forkConfig } from '~/types/resources'
+import { getFirmwareBaseUrl, getGithubIoBase, getManifestBasePath } from './firmwareUrl'
 
 describe('firmwareUrl', () => {
   describe('getManifestBasePath', () => {
-    it('returns event path for event firmware version', () => {
-      // Event firmware version from resources.ts: 2.7.18.7e03cae
-      const eventVersion = '2.7.18.7e03cae'
-      const result = getManifestBasePath(eventVersion)
-      console.log(`[EVENT] getManifestBasePath('${eventVersion}') => ${result}`)
-      expect(result).toBe('event/hamcation2026/firmware-2.7.18.7e03cae')
+    it('returns the standard path for the current Baymesh prerelease', () => {
+      const version = '2.7.21.697b14d'
+      expect(getManifestBasePath(version)).toBe('firmware-2.7.21.697b14d')
     })
 
-    it('returns event path for event firmware version with v prefix', () => {
-      const eventVersion = 'v2.7.18.7e03cae'
-      const result = getManifestBasePath(eventVersion)
-      console.log(`[EVENT] getManifestBasePath('${eventVersion}') => ${result}`)
-      expect(result).toBe('event/hamcation2026/firmware-2.7.18.7e03cae')
+    it('returns the event path only for the configured event firmware version', () => {
+      const eventVersion = eventMode.firmware.id.replace(/^v/, '')
+      expect(getManifestBasePath(eventVersion)).toBe(`event/hamcation2026/firmware-${eventVersion}`)
+      expect(getManifestBasePath(`v${eventVersion}`)).toBe(`event/hamcation2026/firmware-${eventVersion}`)
     })
 
-    it('returns standard path for regular firmware version', () => {
-      const regularVersion = '2.7.19.abcdef'
-      const result = getManifestBasePath(regularVersion)
-      console.log(`[REGULAR] getManifestBasePath('${regularVersion}') => ${result}`)
-      expect(result).toBe('firmware-2.7.19.abcdef')
+    it('returns the standard path for regular versions', () => {
+      expect(getManifestBasePath('2.7.19.abcdef')).toBe('firmware-2.7.19.abcdef')
+      expect(getManifestBasePath('v2.7.19.abcdef')).toBe('firmware-2.7.19.abcdef')
+      expect(getManifestBasePath('2.5.0')).toBe('firmware-2.5.0')
     })
+  })
 
-    it('returns standard path for regular firmware version with v prefix', () => {
-      const regularVersion = 'v2.7.19.abcdef'
-      const result = getManifestBasePath(regularVersion)
-      console.log(`[REGULAR] getManifestBasePath('${regularVersion}') => ${result}`)
-      expect(result).toBe('firmware-2.7.19.abcdef')
-    })
-
-    it('returns standard path for stable release', () => {
-      const stableVersion = '2.5.0'
-      const result = getManifestBasePath(stableVersion)
-      console.log(`[STABLE] getManifestBasePath('${stableVersion}') => ${result}`)
-      expect(result).toBe('firmware-2.5.0')
+  describe('getGithubIoBase', () => {
+    it('uses the Baymesh firmware pages repo when the fork is enabled', () => {
+      expect(getGithubIoBase()).toBe(forkConfig.firmwareRepo)
     })
   })
 
   describe('getFirmwareBaseUrl', () => {
-    it('returns full event URL for event firmware', () => {
-      const eventVersion = '2.7.18.7e03cae'
-      const result = getFirmwareBaseUrl(eventVersion)
-      console.log(`[EVENT FULL URL] getFirmwareBaseUrl('${eventVersion}') =>\n  ${result}`)
-      expect(result).toBe(
-        `${GITHUB_IO_BASE}/event/hamcation2026/firmware-2.7.18.7e03cae`
+    it('builds full URLs for standard releases', () => {
+      expect(getFirmwareBaseUrl('2.7.19.abcdef')).toBe(
+        `${forkConfig.firmwareRepo}/firmware-2.7.19.abcdef`,
+      )
+      expect(getFirmwareBaseUrl('2.5.0')).toBe(
+        `${forkConfig.firmwareRepo}/firmware-2.5.0`,
       )
     })
 
-    it('returns full standard URL for regular firmware', () => {
-      const regularVersion = '2.7.19.abcdef'
-      const result = getFirmwareBaseUrl(regularVersion)
-      console.log(`[REGULAR FULL URL] getFirmwareBaseUrl('${regularVersion}') =>\n  ${result}`)
-      expect(result).toBe(
-        `${GITHUB_IO_BASE}/firmware-2.7.19.abcdef`
+    it('builds the full event URL for the configured event firmware', () => {
+      const eventVersion = eventMode.firmware.id.replace(/^v/, '')
+      expect(getFirmwareBaseUrl(eventVersion)).toBe(
+        `${forkConfig.firmwareRepo}/event/hamcation2026/firmware-${eventVersion}`,
       )
-    })
-
-    it('returns full standard URL for stable release', () => {
-      const stableVersion = '2.5.0'
-      const result = getFirmwareBaseUrl(stableVersion)
-      console.log(`[STABLE FULL URL] getFirmwareBaseUrl('${stableVersion}') =>\n  ${result}`)
-      expect(result).toBe(
-        `${GITHUB_IO_BASE}/firmware-2.5.0`
-      )
-    })
-  })
-
-  describe('GITHUB_IO_BASE', () => {
-    it('has the correct base URL', () => {
-      console.log(`[BASE URL] GITHUB_IO_BASE = ${GITHUB_IO_BASE}`)
-      expect(GITHUB_IO_BASE).toBe('https://raw.githubusercontent.com/meshtastic/meshtastic.github.io/master')
     })
   })
 })

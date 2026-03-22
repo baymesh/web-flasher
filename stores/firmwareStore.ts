@@ -15,6 +15,7 @@ import {
   currentPrerelease,
   showPrerelease,
   eventMode,
+  forkConfig,
 } from '~/types/resources'
 import { getFirmwareBaseUrl } from '~/utils/firmwareUrl'
 
@@ -140,6 +141,7 @@ export const useFirmwareStore = defineStore('firmware', {
       isConnected: false,
       port: <SerialPort | undefined>{},
       couldntFetchFirmwareApi: false,
+      usesStaticForkReleases: false,
       prereleaseUnlocked: useSessionStorage('prereleaseUnlocked', false),
       hasManifest: false,
       manifest: <FirmwareManifest | undefined>undefined,
@@ -174,7 +176,19 @@ export const useFirmwareStore = defineStore('firmware', {
         console.log('Event mode enabled, skipping firmware API fetch')
         return
       }
-      
+
+      if (forkConfig.enabled && forkConfig.staticReleasesOnly) {
+        this.stable = []
+        this.alpha = []
+        this.pullRequests = []
+        this.previews = previews
+        this.couldntFetchFirmwareApi = false
+        this.usesStaticForkReleases = true
+        return
+      }
+
+      this.usesStaticForkReleases = false
+
       firmwareApi.get<FirmwareReleases>()
         .then(async (response: FirmwareReleases) => {
           // Fetch release notes for each firmware version from meshtastic.github.io

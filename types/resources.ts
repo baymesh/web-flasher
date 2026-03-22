@@ -2,24 +2,25 @@ import type { FirmwareResource } from './api';
 
 // Remove the OfflineHardwareList since it's now in /public/data/hardware-list.json
 
-const currentPrereleaseId = '2.7.21.f634e2f';
+const currentPrereleaseId = '2.7.21.697b14d';
 
 export const showPrerelease = true;
 
 export const currentPrerelease = <FirmwareResource>{
   id: `v${currentPrereleaseId}`,
   title: `Baymesh Firmware ${currentPrereleaseId}`,
-  zip_url: `https://baymesh.github.io/bayme.sh-firmware-pages/firmware-${currentPrereleaseId}.zip`,
+  zip_url: `https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages/firmware-${currentPrereleaseId}.zip`,
 };
 
 // Fork Configuration
 // Set the GitHub repo that hosts your fork firmware
 export const forkConfig = {
   enabled: true,
+  staticReleasesOnly: true,
   name: 'Baymesh Firmware',
   description: 'Custom Meshtastic fork with MeshControl, relay_node, HOP_MAX=64, position broadcast off, and channel slot 49',
   firmwareRepo: 'https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages',
-  githubRepo: 'https://github.com/baymesh/firmware',
+  githubRepo: 'https://github.com/RCGV1/firmware-Fork/tree/baymesh-refactor',
   releaseNotes: `
 ## Baymesh Firmware Features
 
