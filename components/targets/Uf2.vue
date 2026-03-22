@@ -147,6 +147,13 @@ import ReleaseNotes from './ReleaseNotes.vue'
 const deviceStore = useDeviceStore()
 const firmwareStore = useFirmwareStore()
 
+const getVariantBoardName = (target: DeviceHardware) => {
+  if (firmwareStore.shouldInstallInkHud) {
+    return `${target.platformioTarget}-inkhud`
+  }
+  return target.platformioTarget
+}
+
 const variantTargets = computed<DeviceHardware[]>(() => {
   const selected = deviceStore.$state.selectedTarget
   if (!selected) return []
@@ -164,9 +171,13 @@ const variantTargets = computed<DeviceHardware[]>(() => {
     uniqueByEnv.set(candidate.platformioTarget, candidate)
   })
 
-  const result = Array.from(uniqueByEnv.values())
+  let result = Array.from(uniqueByEnv.values())
   if (!result.find(candidate => candidate.platformioTarget === selected.platformioTarget)) {
     result.push(selected)
+  }
+
+  if (firmwareStore.availableReleaseBoards.length > 0) {
+    result = result.filter(candidate => firmwareStore.availableReleaseBoards.includes(getVariantBoardName(candidate)))
   }
 
   return result.sort((a, b) => {
@@ -210,11 +221,7 @@ const canInstallInkHud = computed(() => {
 const getDownloadUf2Url = (target?: DeviceHardware) => {
   if (!target || !firmwareStore.selectedFirmware?.id) return ''
   const firmwareVersion = firmwareStore.selectedFirmware.id.replace('v', '')
-  let suffix = ''
-  if (firmwareStore.shouldInstallInkHud) {
-    suffix = '-inkhud'
-  }
-  const firmwareFile = `firmware-${target.platformioTarget}${suffix}-${firmwareVersion}.uf2`
+  const firmwareFile = `firmware-${getVariantBoardName(target)}-${firmwareVersion}.uf2`
   firmwareStore.trackDownload(target, false)
   console.log(firmwareFile)
   return firmwareStore.getReleaseFileUrl(firmwareFile)

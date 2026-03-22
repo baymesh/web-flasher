@@ -6,22 +6,7 @@ const currentPrereleaseId = '2.7.21.27e5394';
 
 export const showPrerelease = true;
 
-export const currentPrerelease = <FirmwareResource>{
-  id: `v${currentPrereleaseId}`,
-  title: `Baymesh Firmware ${currentPrereleaseId}`,
-  zip_url: `https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages/firmware-${currentPrereleaseId}.zip`,
-};
-
-// Fork Configuration
-// Set the GitHub repo that hosts your fork firmware
-export const forkConfig = {
-  enabled: true,
-  staticReleasesOnly: true,
-  name: 'Baymesh Firmware',
-  description: 'Custom Meshtastic fork with MeshControl, relay_node, HOP_MAX=64, position broadcast off, and channel slot 49',
-  firmwareRepo: 'https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages',
-  githubRepo: 'https://github.com/RCGV1/firmware-Fork/tree/baymesh-refactor',
-  releaseNotes: `
+const baymeshReleaseNotes = `
 ## Baymesh Firmware Features
 
 ### ⚠️ Not Compatible with Standard Meshtastic
@@ -43,7 +28,25 @@ Remote configuration of mesh nodes via signed HMAC packets.
 
 ### Configuration
 Use the iOS app or CLI to configure these features.
-  `,
+`;
+
+// Fork Configuration
+// Set the GitHub repo that hosts your fork firmware
+export const forkConfig = {
+  enabled: true,
+  staticReleasesOnly: true,
+  name: 'Baymesh Firmware',
+  description: 'Custom Meshtastic fork with MeshControl, relay_node, HOP_MAX=64, position broadcast off, and channel slot 49',
+  firmwareRepo: 'https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages',
+  githubRepo: 'https://github.com/RCGV1/firmware-Fork/tree/baymesh-refactor',
+  releaseNotes: baymeshReleaseNotes,
+};
+
+export const currentPrerelease = <FirmwareResource>{
+  id: `v${currentPrereleaseId}`,
+  title: `Baymesh Firmware ${currentPrereleaseId}`,
+  zip_url: `https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages/firmware-${currentPrereleaseId}.zip`,
+  release_notes: baymeshReleaseNotes,
 };
 
 // Event Mode Configuration

@@ -6,11 +6,17 @@ export default defineNuxtPlugin(() => {
   // Only initialize in browser environment
   if (import.meta.client) {
     const config = useRuntimeConfig()
+    const applicationId = config.public.datadogApplicationId
+    const clientToken = config.public.datadogClientToken
+
+    if (!applicationId || !clientToken) {
+      return
+    }
 
     // Initialize Datadog RUM
     datadogRum.init({
-      applicationId: config.public.datadogApplicationId || 'YOUR_APPLICATION_ID',
-      clientToken: config.public.datadogClientToken || 'YOUR_CLIENT_TOKEN',
+      applicationId,
+      clientToken,
       site: 'us5.datadoghq.com',
       service: 'meshtastic-web-flasher',
       env: config.public.datadogEnv || 'production',
@@ -23,7 +29,7 @@ export default defineNuxtPlugin(() => {
 
     // Initialize Datadog Logs (for precise counting, no sampling)
     datadogLogs.init({
-      clientToken: config.public.datadogClientToken || 'YOUR_CLIENT_TOKEN',
+      clientToken,
       site: 'us5.datadoghq.com',
       service: 'meshtastic-web-flasher',
       env: config.public.datadogEnv || 'production',

@@ -61,6 +61,9 @@ async function fetchReleaseNotes(version: string): Promise<string> {
     const url = `${getFirmwareBaseUrl(version)}/release_notes.md`
     const response = await fetch(url)
     if (!response.ok) {
+      if (response.status === 404) {
+        return ''
+      }
       console.warn(`Could not fetch release notes from ${url}`)
       return ''
     }
@@ -155,6 +158,7 @@ export const useFirmwareStore = defineStore('firmware', {
     percentDone: state => `${state.flashPercentDone}%`,
     firmwareVersion: state => state.selectedFirmware?.id ? state.selectedFirmware.id.replace('v', '') : '.+',
     canShowFlash: state => state.selectedFirmware?.id ? state.hasSeenReleaseNotes : true,
+    availableReleaseBoards: state => state.releaseManifest?.targets?.map(target => target.board) ?? [],
     isZipFile: state => state.selectedFile?.name.endsWith('.zip'),
     isFactoryBin: state => state.selectedFile?.name.endsWith('.factory.bin'),
   },

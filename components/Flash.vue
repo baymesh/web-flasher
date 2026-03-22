@@ -9,6 +9,12 @@
     >
       {{ $t('flash.title') }}
     </button>
+    <p
+      v-if="unsupportedTargetMessage"
+      class="max-w-xs text-xs text-amber-300"
+    >
+      {{ unsupportedTargetMessage }}
+    </p>
     <button
       v-show="['nrf52840', 'rp2040'].includes(deviceStore.selectedArchitecture)"
       data-tooltip-target="tooltip-erase"
@@ -116,6 +122,55 @@ const serialMonitorStore = useSerialMonitorStore()
 
 const fileExistsOnServer = ref(false)
 
+const getTargetBoardName = () => {
+  const target = deviceStore.$state.selectedTarget
+  if (!target) return ''
+
+  if (['nrf52840', 'rp2040'].includes(deviceStore.selectedArchitecture) && firmwareStore.shouldInstallInkHud) {
+    return `${target.platformioTarget}-inkhud`
+  }
+
+  if (deviceStore.selectedArchitecture.startsWith('esp32')) {
+    if (firmwareStore.shouldInstallMui && !target.platformioTarget.endsWith('-tft')) {
+      return `${target.platformioTarget}-tft`
+    }
+    if (firmwareStore.shouldInstallInkHud) {
+      return `${target.platformioTarget}-inkhud`
+    }
+  }
+
+  return target.platformioTarget
+}
+
+const availableReleaseDisplayNames = computed(() => {
+  if (firmwareStore.availableReleaseBoards.length === 0) return []
+
+  return firmwareStore.availableReleaseBoards.map((board) => {
+    const matchingTarget = deviceStore.targets.find(target => target.platformioTarget === board)
+    return matchingTarget?.displayName || board
+  })
+})
+
+const selectedTargetSupported = computed(() => {
+  if (!firmwareStore.hasOnlineFirmware) return true
+  if (firmwareStore.availableReleaseBoards.length === 0) return true
+  const targetBoard = getTargetBoardName()
+  if (!targetBoard) return true
+  return firmwareStore.isTargetAvailable(targetBoard)
+})
+
+const unsupportedTargetMessage = computed(() => {
+  if (!firmwareStore.hasOnlineFirmware || selectedTargetSupported.value) {
+    return ''
+  }
+
+  if (availableReleaseDisplayNames.value.length === 0) {
+    return 'This firmware release does not include the selected device.'
+  }
+
+  return `This Baymesh release currently supports: ${availableReleaseDisplayNames.value.join(', ')}.`
+})
+
 watch(() => firmwareStore.$state.selectedFirmware, async () => {
   await preflightCheck()
 })
@@ -137,13 +192,19 @@ const preflightCheck = async () => {
     return
   }
 
+  const targetBoard = getTargetBoardName()
+  if (firmwareStore.availableReleaseBoards.length > 0 && targetBoard && !firmwareStore.isTargetAvailable(targetBoard)) {
+    fileExistsOnServer.value = false
+    return
+  }
+
   if (['nrf52840', 'rp2040'].includes(deviceStore.selectedArchitecture)) {
     const firmwareVersion = firmwareStore.selectedFirmware!.id.replace('v', '')
-    const firmwareFile = `firmware-${deviceStore.selectedTarget.platformioTarget}-${firmwareVersion}.uf2`
+    const firmwareFile = `firmware-${targetBoard}-${firmwareVersion}.uf2`
     fileExistsOnServer.value = await checkIfRemoteFileExists(firmwareStore.getReleaseFileUrl(firmwareFile))
   }
   else if (deviceStore.selectedArchitecture.startsWith('esp32')) {
-    const basePrefix = `firmware-${deviceStore.$state.selectedTarget.platformioTarget}-${firmwareStore.firmwareVersion}`
+    const basePrefix = `firmware-${targetBoard}-${firmwareStore.firmwareVersion}`
     let manifestExists = false
     const manifestName = `${basePrefix}.mt.json`
     const manifestUrl = firmwareStore.getReleaseFileUrl(manifestName)
@@ -174,6 +235,7 @@ const canFlash = computed(() => {
   const hasDevice = deviceStore.selectedTarget?.hwModel > 0
   const hasFirmware = firmwareStore.hasFirmwareFile || firmwareStore.hasOnlineFirmware
   return !serialMonitorStore.isConnected && hasDevice && hasFirmware
+    && selectedTargetSupported.value
     && (fileExistsOnServer.value || firmwareStore.hasFirmwareFile)
 })
 </script>
