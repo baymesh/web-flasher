@@ -62,6 +62,9 @@ async function fetchReleaseNotes(version: string): Promise<string> {
     const response = await fetch(url)
     if (!response.ok) {
       if (response.status === 404) {
+        if (forkConfig.enabled && forkConfig.releaseNotes) {
+          return forkConfig.releaseNotes
+        }
         return ''
       }
       console.warn(`Could not fetch release notes from ${url}`)
