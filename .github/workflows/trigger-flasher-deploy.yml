@@ -1,0 +1,16 @@
+name: Trigger Flasher Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger bayme.sh-zone rebuild
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GH_ZONE_TOKEN }}
+          repository: baymesh/bayme.sh-zone
+          event-type: rebuild-flasher
