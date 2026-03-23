@@ -188,9 +188,32 @@ export const useFirmwareStore = defineStore('firmware', {
         this.stable = []
         this.alpha = []
         this.pullRequests = []
-        this.previews = previews
-        this.couldntFetchFirmwareApi = false
         this.usesStaticForkReleases = true
+        this.couldntFetchFirmwareApi = false
+
+        // Try to fetch the latest published version from latest.json
+        try {
+          const latestUrl = `${forkConfig.firmwareRepo}/latest.json`
+          const response = await fetch(latestUrl)
+          if (response.ok) {
+            const latest = await response.json() as { version: string }
+            if (latest.version) {
+              const dynamicRelease: FirmwareResource = {
+                id: `v${latest.version}`,
+                title: `Baymesh Firmware ${latest.version}`,
+                zip_url: `${forkConfig.firmwareRepo}/firmware-${latest.version}.zip`,
+                release_notes: forkConfig.releaseNotes ?? '',
+              }
+              this.previews = [dynamicRelease]
+              return
+            }
+          }
+        }
+        catch (error) {
+          console.warn('Could not fetch latest.json, falling back to hardcoded prerelease:', error)
+        }
+
+        this.previews = previews
         return
       }
 

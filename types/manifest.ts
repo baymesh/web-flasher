@@ -62,7 +62,9 @@ export interface FirmwareManifest {
  */
 export interface ReleaseTarget {
   board: string
-  platform: string
+  platform?: string
+  firmware?: string
+  type?: string
 }
 
 /**
@@ -70,5 +72,6 @@ export interface ReleaseTarget {
  */
 export interface ReleaseManifest {
   version: string
+  build_date?: string
   targets: ReleaseTarget[]
 }
