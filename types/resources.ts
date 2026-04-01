@@ -2,7 +2,7 @@ import type { FirmwareResource } from './api';
 
 // Remove the OfflineHardwareList since it's now in /public/data/hardware-list.json
 
-const currentPrereleaseId = '2.7.21.12df092';
+const currentPrereleaseId = '2.7.21.b14af14';
 
 export const showPrerelease = true;
 
@@ -13,21 +13,20 @@ const baymeshReleaseNotes = `
 This firmware is a custom fork and will NOT work with regular Meshtastic clients.
 
 ### MeshControl (Port 78)
-Remote configuration of mesh nodes via signed HMAC packets.
+Remote configuration of mesh nodes via signed HMAC packets with HMAC-SHA256 authentication, replay protection, and rate limiting.
 
-### Relay Node Support
-- **Broadcast relay_node**: Set which node should rebroadcast your broadcasts first
-- **DM relay_node preference**: Configure a default relay node for direct messages
-
-### Hop Limit
-- HOP_MAX = 64 (reduced from 127)
+### Extended Hop Limit
+- **HOP_MAX = 64** — unicast packets can traverse the full Bay Area mesh
+- **HOP_BROADCAST = 3** — flood traffic stays contained
+- Broadcast and unicast hop limits are configured independently via \`lora.broadcast_hop_limit\`
 
 ### Defaults
 - Position broadcast: OFF by default
-- Node info broadcasts: Use regular hop limit
+- Broadcast hop limit: 3 (configurable)
+- Unicast hop limit: 64 (configurable)
 
 ### Configuration
-Use the iOS app or CLI to configure these features.
+Use the iOS/Android app or CLI to configure these features.
 `;
 
 // Fork Configuration
@@ -36,7 +35,7 @@ export const forkConfig = {
   enabled: true,
   staticReleasesOnly: true,
   name: 'Baymesh Firmware',
-  description: 'Custom Meshtastic fork with MeshControl, relay_node, HOP_MAX=64, position broadcast off, and channel slot 49',
+  description: 'Custom Meshtastic fork with MeshControl, HOP_MAX=64, separate broadcast hop limit, and position broadcast off by default',
   firmwareRepo: 'https://raw.githubusercontent.com/baymesh/bayme.sh-firmware-pages/gh-pages',
   githubRepo: 'https://github.com/RCGV1/firmware-Fork/tree/baymesh-refactor',
   releaseNotes: baymeshReleaseNotes,
@@ -68,7 +67,7 @@ This firmware includes MeshControl and relay_node features.
 ### Features
 - MeshControl: Remote configuration via signed packets
 - Relay Node: Specify which node rebroadcasts your messages
-- HOP_MAX=64: Reduced hop limit
+- HOP_MAX=64: Extended hop limit for Bay Area mesh
 
 ### Backup Note
 If your device has existing settings, backup your keys before flashing.
