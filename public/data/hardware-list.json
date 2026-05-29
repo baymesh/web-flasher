@@ -1212,7 +1212,7 @@
       "Heltec"
     ],
     "requiresDfu": true,
-    "hasMui": false,
+    "hasMui": true,
     "partitionScheme": "16MB",
     "images": [
       "heltec_v4.svg"
@@ -1237,11 +1237,27 @@
     ]
   },
   {
+    "hwModel": 112,
+    "hwModelSlug": "M5STACK_CARDPUTER_ADV",
+    "platformioTarget": "m5stack-cardputer-adv",
+    "architecture": "esp32-s3",
+    "activelySupported": true,
+    "supportLevel": 1,
+    "displayName": "Cardputer Mesh Kit",
+    "tags": [
+      "M5Stack"
+    ],
+    "images": [
+      "m5stack_cardputer.svg"
+    ],
+    "partitionScheme": "8MB"
+  },
+  {
     "hwModel": 113,
     "hwModelSlug": "HELTEC_WIRELESS_TRACKER_V2",
     "platformioTarget": "heltec-wireless-tracker-v2",
-    "architecture": "esp32s3",
-    "activelySupported": false,
+    "architecture": "esp32-s3",
+    "activelySupported": true,
     "supportLevel": 1,
     "displayName": "Heltec Wireless Tracker V2",
     "tags": [
@@ -1302,11 +1318,23 @@
     ]
   },
   {
+    "hwModel": 118,
+    "hwModelSlug": "RAK6421",
+    "platformioTarget": "native",
+    "architecture": "portduino",
+    "activelySupported": true,
+    "supportLevel": 1,
+    "displayName": "RAK6421 Hat+",
+    "tags": [
+      "RAK"
+    ]
+  },
+  {
     "hwModel": 119,
     "hwModelSlug": "THINKNODE_M4",
     "platformioTarget": "thinknode_m4",
     "architecture": "nrf52840",
-    "activelySupported": false,
+    "activelySupported": true,
     "supportLevel": 1,
     "displayName": "ThinkNode M4",
     "tags": [
@@ -1322,7 +1350,7 @@
     "hwModelSlug": "THINKNODE_M6",
     "platformioTarget": "thinknode_m6",
     "architecture": "nrf52840",
-    "activelySupported": false,
+    "activelySupported": true,
     "supportLevel": 1,
     "displayName": "ThinkNode M6",
     "tags": [
@@ -1331,6 +1359,18 @@
     "requiresDfu": true,
     "images": [
       "thinknode_m6.svg"
+    ]
+  },
+  {
+    "hwModel": 121,
+    "hwModelSlug": "MESHSTICK_1262",
+    "platformioTarget": "native",
+    "architecture": "portduino",
+    "activelySupported": true,
+    "supportLevel": 1,
+    "displayName": "Elecrow Meshstick 1262",
+    "tags": [
+      "Elecrow"
     ]
   },
   {
@@ -1364,7 +1404,7 @@
     "hasMui": false,
     "partitionScheme": "8MB",
     "images": [
-      "t5s3-epaper-pro.svg"
+      "t5s3_epaper.svg"
     ]
   },
   {
@@ -1381,6 +1421,21 @@
     "hasMui": false,
     "images": [
       "mini-epaper-s3.svg"
+    ]
+  },
+  {
+    "hwModel": 127,
+    "hwModelSlug": "HELTEC_MESH_NODE_T096",
+    "platformioTarget": "heltec-mesh-node-t096",
+    "architecture": "nrf52840",
+    "activelySupported": true,
+    "supportLevel": 1,
+    "displayName": "Heltec Mesh Node T096",
+    "tags": [
+      "Heltec"
+    ],
+    "images": [
+      "heltec-t096.svg"
     ]
   }
 ]
