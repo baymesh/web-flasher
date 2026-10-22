@@ -1,0 +1,11 @@
+// Serves the Nuxt static build (ssr: false) as Workers static assets at flasher.bayme.sh.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "baymesh-flasher",
+  "compatibility_date": "2026-10-01",
+  "routes": [{ "pattern": "flasher.bayme.sh", "custom_domain": true }],
+  "assets": {
+    "directory": "./.output/public",
+    "not_found_handling": "404-page"
+  }
+}

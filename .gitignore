@@ -95,3 +95,6 @@ sw.*
 .vercel
 
 .playwright-mcp
+
+# Cloudflare
+.wrangler/
